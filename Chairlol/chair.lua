@@ -15,41 +15,109 @@ Citizen.CreateThread(
     end
 )
 
-RegisterCommand(
-    "chair",
-    function()
-        chair()
-        print("5$ Chair is spawned and ready to use!")
-    end
-)
-
-function chair()
-    local object_model = "prop_off_chair_05"
-    Citizen.CreateThread(
-        function()
-            RequestModel(object_model)
-            local iter_for_request = 1
-            while not HasModelLoaded(object_model) and iter_for_request < 5 do
-                Citizen.Wait(500)
-                iter_for_request = iter_for_request + 1
-            end
-            if not HasModelLoaded(object_model) then
-                SetModelAsNoLongerNeeded(object_model)
-            else
-                local ped = PlayerPedId()
-                local x, y, z = table.unpack(GetEntityCoords(ped))
-                local created_object = CreateObjectNoOffset(object_model, x, y, z, 1, 0, 1)
-                PlaceObjectOnGroundProperly(created_object)
-                FreezeEntityPosition(created_object, true)
-                SetModelAsNoLongerNeeded(object_model)
-            end
-        end
-    )
-end
-
 local ListaObjekata = {
-	`prop_off_chair_05`
+	`prop_off_chair_05`, --Classic one 
+    `prop_skid_chair_01`, --green one 
+    `prop_skid_chair_02`, -- blue one I guess lol
+    `ex_prop_offchair_exec_03` --Office chair
 }
+
+
+
+AddEventHandler("chair:spawn")
+RegisterNetEvent("chair:spawn", function()
+    x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), true))
+    local heading = GetEntityHeading(PlayerPedId())
+
+    chair = `prop_skid_chair_01`
+
+    RequestModel(chair)
+    while not HasModelLoaded(chair) do
+      Citizen.Wait(1)
+    end
+
+    local object = CreateObject(chair, x+1, y, z-2, true, true, false) -- x+1
+    PlaceObjectOnGroundProperly(object)
+    SetEntityHeading(object, heading + 180)
+    FreezeEntityPosition(object, true)
+    SetModelAsNoLongerNeeded(object)
+end)
+
+AddEventHandler("chair:spawn2")
+RegisterNetEvent("chair:spawn2", function()
+    x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), true))
+    local heading = GetEntityHeading(PlayerPedId())
+
+    chair2 = `prop_off_chair_05`
+
+    RequestModel(chair2)
+    while not HasModelLoaded(chair2) do
+      Citizen.Wait(1)
+    end
+
+    local object = CreateObject(chair2, x+1, y, z-2, true, true, false) -- x+1
+    PlaceObjectOnGroundProperly(object)
+    SetEntityHeading(object, heading + 180)
+    FreezeEntityPosition(object, true)
+    SetModelAsNoLongerNeeded(object)
+end)
+
+AddEventHandler("chair:spawn3")
+RegisterNetEvent("chair:spawn3", function()
+    x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), true))
+    local heading = GetEntityHeading(PlayerPedId())
+
+    chair3 = `prop_skid_chair_02`
+
+    RequestModel(chair3)
+    while not HasModelLoaded(chair3) do
+      Citizen.Wait(1)
+    end
+
+    local object = CreateObject(chair3, x+1, y, z-2, true, true, false) -- x+1
+    PlaceObjectOnGroundProperly(object)
+    SetEntityHeading(object, heading + 180)
+    FreezeEntityPosition(object, true)
+    SetModelAsNoLongerNeeded(object)
+end)
+
+AddEventHandler("chair:spawn3")
+RegisterNetEvent("chair:spawn3", function()
+    x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), true))
+    local heading = GetEntityHeading(PlayerPedId())
+
+    chair3 = `prop_skid_chair_02`
+
+    RequestModel(chair3)
+    while not HasModelLoaded(chair3) do
+      Citizen.Wait(1)
+    end
+
+    local object = CreateObject(chair3, x+1, y, z-2, true, true, false) -- x+1
+    PlaceObjectOnGroundProperly(object)
+    SetEntityHeading(object, heading + 180)
+    FreezeEntityPosition(object, true)
+    SetModelAsNoLongerNeeded(object)
+end)
+
+AddEventHandler("chair:spawn4")
+RegisterNetEvent("chair:spawn4", function()
+    x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), true))
+    local heading = GetEntityHeading(PlayerPedId())
+
+    chair4 = `ex_prop_offchair_exec_03`
+
+    RequestModel(chair4)
+    while not HasModelLoaded(chair4) do
+      Citizen.Wait(1)
+    end
+
+    local object = CreateObject(chair4, x+1, y, z-2, true, true, false) -- x+1
+    PlaceObjectOnGroundProperly(object)
+    SetEntityHeading(object, heading + 180)
+    FreezeEntityPosition(object, true)
+    SetModelAsNoLongerNeeded(object)
+end)
 
 
 RegisterCommand(
@@ -67,6 +135,6 @@ RegisterCommand(
                 break
             end
         end
-        print("You took your 5$ chair!")
+        ESX.ShowNotification('You took your ~b~5$~w~ chair!')
     end
 )
