@@ -1,0 +1,2 @@
+# Sittablechair
+/chair /takechair  = profit
