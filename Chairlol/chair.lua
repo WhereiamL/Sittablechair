@@ -1,6 +1,16 @@
 ESX = nil
 
+--[[
+Add this to your databse under items 
 
+greenchair
+
+classicchair
+
+bluechair
+
+officechair
+]]
 Citizen.CreateThread(
     function()
         while ESX == nil do
